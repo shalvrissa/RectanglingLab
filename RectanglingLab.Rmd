@@ -1,0 +1,44 @@
+---
+title: "Rectangling Lab"
+author: "Sha Lu"
+date: "6/14/2021"
+output: pdf_document
+---
+
+```{r}
+library(rvest)
+library(dplyr)
+library(tidyverse)
+library(repurrrsive)
+listviewer::jsonedit(gh_users)
+```
+a) Explain or describe nested Lists. 
+```{r}
+## Nested list means there are lists inside a list. 
+```
+b) Open and explore data for Git Hub repos by running the following code gh_repos.  Comment on the structure and arrangement of the data (Two or three sentences)
+```{r}
+listviewer::jsonedit(gh_repos)
+## This is an array with 6 nested lists inside. Every list except list 3 has 30 sub-lists, list 3 has 26 sub-lists. Under the sub-lists, there are 68 elements or objects sepreatly. 
+```
+c)  In two or three sentences, explain what happens to the data when you run the code
+```{r}
+repos <- tibble(repo = gh_repos)
+repos
+
+## This code organizes the data into a tibble. Whole repo has 6 lists. Every list has 30 sub lists.
+```
+d)  Describe the data representation when the listserver tool is applied. And go into detail explaining why we have a nested List configuration. What do the numbers 30 and 68 represent ? (6 or 7 sentences)
+```{r}
+listviewer::jsonedit(gh_repos)
+## This array has 6 lists. Under every list, there are 30 sub-lists. Except list 3 has only 26 sub-list. Every sub-list is a user's information, it has 68 elements.
+```
+e)
+```{r}
+tibble(repo = gh_repos)%>%
+  unnest_auto(repo)%>%
+  unnest_auto(repo) -> new
+new
+
+```
+
